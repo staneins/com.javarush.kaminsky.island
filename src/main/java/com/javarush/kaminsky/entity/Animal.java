@@ -12,4 +12,9 @@ public abstract class Animal {
         this.maxSpeedInCells = maxSpeedInCells;
         this.kgsOfFoodNeeded = kgsOfFoodNeeded;
     }
+
+    public abstract void eat();
+    public abstract void breed();
+    public abstract void move();
+
 }
