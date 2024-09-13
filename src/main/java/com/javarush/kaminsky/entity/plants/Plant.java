@@ -1,6 +1,8 @@
 package com.javarush.kaminsky.entity.plants;
 
-public class Plant {
+import com.javarush.kaminsky.entity.Being;
+
+public class Plant extends Being {
     public Plant(double weight, int maxNumberInOneCell, int maxSpeedInCells, double kgsOfFoodNeeded) {
         weight = 1;
         maxNumberInOneCell = 200;
