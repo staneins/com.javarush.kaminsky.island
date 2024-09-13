@@ -1,4 +1,4 @@
-package com.javarush.kaminsky.entity;
+package com.javarush.kaminsky.entity.herbivores;
 
 public class Buffalo extends Herbivore {
     public Buffalo(double weight, int maxNumberInOneCell, int maxSpeedInCells, double kgsOfFoodNeeded) {

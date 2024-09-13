@@ -1,4 +1,4 @@
-package com.javarush.kaminsky.entity;
+package com.javarush.kaminsky.entity.herbivores;
 
 public class Mouse extends Herbivore {
     public Mouse(double weight, int maxNumberInOneCell, int maxSpeedInCells, double kgsOfFoodNeeded) {

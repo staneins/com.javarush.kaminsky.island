@@ -1,6 +1,6 @@
 package com.javarush.kaminsky.entity;
 
-public abstract class Animal {
+public abstract class Animal extends Being {
     private double weight;
     private int maxNumberInOneCell;
     private int maxSpeedInCells;
@@ -13,8 +13,8 @@ public abstract class Animal {
         this.kgsOfFoodNeeded = kgsOfFoodNeeded;
     }
 
-    public abstract void eat();
-    public abstract void breed();
-    public abstract void move();
+//    public abstract void eat();
+//    public abstract void breed();
+//    public abstract void move();
 
 }

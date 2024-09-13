@@ -1,4 +1,4 @@
-package com.javarush.kaminsky.entity;
+package com.javarush.kaminsky.entity.herbivores;
 
 public class Caterpillar extends Herbivore {
     public Caterpillar(double weight, int maxNumberInOneCell, int maxSpeedInCells, double kgsOfFoodNeeded) {

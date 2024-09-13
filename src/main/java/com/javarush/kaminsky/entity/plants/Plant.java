@@ -1,4 +1,4 @@
-package com.javarush.kaminsky.entity;
+package com.javarush.kaminsky.entity.plants;
 
 public class Plant {
     public Plant(double weight, int maxNumberInOneCell, int maxSpeedInCells, double kgsOfFoodNeeded) {

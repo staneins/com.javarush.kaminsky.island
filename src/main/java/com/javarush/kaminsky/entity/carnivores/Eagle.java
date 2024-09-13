@@ -1,4 +1,4 @@
-package com.javarush.kaminsky.entity;
+package com.javarush.kaminsky.entity.carnivores;
 
 public class Eagle extends Carnivore {
     public Eagle(double weight, int maxNumberInOneCell, int maxSpeedInCells, double kgsOfFoodNeeded) {

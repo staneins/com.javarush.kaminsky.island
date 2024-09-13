@@ -1,4 +1,4 @@
-package com.javarush.kaminsky.entity;
+package com.javarush.kaminsky.entity.herbivores;
 
 public class Horse extends Herbivore {
     public Horse(double weight, int maxNumberInOneCell, int maxSpeedInCells, double kgsOfFoodNeeded) {
