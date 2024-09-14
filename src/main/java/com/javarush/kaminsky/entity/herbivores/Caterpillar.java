@@ -1,7 +1,9 @@
 package com.javarush.kaminsky.entity.herbivores;
 
 public class Caterpillar extends Herbivore {
-    public Caterpillar(double weight, int maxNumberInOneCell, int maxSpeedInCells, double kgsOfFoodNeeded) {
-        super(0.01, 1000, 0, 0);
+    private String view;
+    public Caterpillar(double weight, int maxNumberInOneCell, int maxSpeedInCells, double kgsOfFoodNeeded, String view) {
+        super(weight, maxNumberInOneCell, maxSpeedInCells, kgsOfFoodNeeded, view);
+        this.view = view;
     }
 }

@@ -1,8 +1,10 @@
 package com.javarush.kaminsky.entity.herbivores;
 
 public class Goat extends Herbivore {
-    public Goat(double weight, int maxNumberInOneCell, int maxSpeedInCells, double kgsOfFoodNeeded) {
-        super(60, 140, 3, 10);
+    private String view;
+    public Goat(double weight, int maxNumberInOneCell, int maxSpeedInCells, double kgsOfFoodNeeded, String view) {
+        super(weight, maxNumberInOneCell, maxSpeedInCells, kgsOfFoodNeeded, view);
+        this.view = view;
     }
 
 }

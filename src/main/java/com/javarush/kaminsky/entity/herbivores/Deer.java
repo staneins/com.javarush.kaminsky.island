@@ -1,7 +1,9 @@
 package com.javarush.kaminsky.entity.herbivores;
 
 public class Deer extends Herbivore {
-    public Deer(double weight, int maxNumberInOneCell, int maxSpeedInCells, double kgsOfFoodNeeded) {
-        super(300, 20, 4, 50);
+    private String view;
+    public Deer(double weight, int maxNumberInOneCell, int maxSpeedInCells, double kgsOfFoodNeeded, String view) {
+        super(weight, maxNumberInOneCell, maxSpeedInCells, kgsOfFoodNeeded, view);
+        this.view = view;
     }
 }
