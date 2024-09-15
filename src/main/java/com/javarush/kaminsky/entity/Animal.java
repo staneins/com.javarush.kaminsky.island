@@ -20,6 +20,6 @@ public abstract class Animal extends Being implements Reproducable {
     }
 
     //    public abstract void eat();
-//    public abstract void move();
+    public abstract void move();
 
 }

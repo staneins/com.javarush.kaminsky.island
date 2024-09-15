@@ -14,6 +14,12 @@ public class AppController {
         return labels.get(index);
     }
 
+    public int getLabelIndex(Label label) {
+        for (Integer index : labels.values()) {
+
+        }
+    }
+
     @FXML private Label cell1;
     @FXML private Label cell2;
     @FXML private Label cell3;

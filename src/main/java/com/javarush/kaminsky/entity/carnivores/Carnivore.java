@@ -9,5 +9,5 @@ public abstract class Carnivore extends Animal {
 
 //    public abstract void eat();
 //    public abstract void breed();
-//    public abstract void move();
+    public abstract void move();
 }

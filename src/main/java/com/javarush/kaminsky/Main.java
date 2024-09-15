@@ -1,5 +1,6 @@
 package com.javarush.kaminsky;
 
+import com.javarush.kaminsky.entity.carnivores.Wolf;
 import com.javarush.kaminsky.service.AppController;
 import com.javarush.kaminsky.service.IslandService;
 import com.javarush.kaminsky.service.PrototypeFactory;
@@ -10,6 +11,9 @@ import javafx.stage.Stage;
 import javafx.scene.text.Font;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main extends Application {
 
@@ -48,10 +52,35 @@ public class Main extends Application {
 
         AppController appController = fxmlLoader.getController();
         islandService = new IslandService(prototypeFactory, appController);
-        islandService.spawnBeings();
+//        islandService.spawnBeings();
+
+        ExecutorService islandThreadPool = Executors.newFixedThreadPool(6);
+
+        Runnable wolfLifeCycle = () -> {
+            try {
+                Wolf wolf = (Wolf) prototypeFactory.getPrototype(Wolf.class);
+                islandService.putBeingOnTheCell(wolf);
+                while (true) { //(wolf.isAlive)
+                    wolf.move();
+                    Thread.sleep(2000);
+//                    if (wolf.isHungry) {
+//                        wolf.eat();
+//                        wolf.breed();
+//                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        };
 
         stage.setScene(scene);
         stage.show();
+
+        if (islandThreadPool.isTerminated()) {
+            islandThreadPool.shutdownNow();
+        }
+
+
     }
 
     public static void main(String[] args) {

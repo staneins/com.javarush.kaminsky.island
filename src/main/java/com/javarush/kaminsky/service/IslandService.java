@@ -4,6 +4,7 @@ import com.javarush.kaminsky.entity.Being;
 import com.javarush.kaminsky.entity.carnivores.*;
 import com.javarush.kaminsky.entity.herbivores.*;
 import com.javarush.kaminsky.entity.plants.Plant;
+import javafx.scene.control.Label;
 import org.jetbrains.annotations.NotNull;
 
 public class IslandService {
@@ -17,8 +18,15 @@ public class IslandService {
 
     public void putBeingOnTheCell(@NotNull Being being) {
         int randomIndex = (int)(Math.random()*100) + 1;
-        appController.getLabel(randomIndex).setText(String.valueOf(being.getView()));
+        Label cell = appController.getLabel(randomIndex);
+        being.setCell(cell);
+        cell.setText(String.valueOf(being.getView()));
     }
+
+    public Label getCurrentCell(Being being) {
+        being.getCell();
+    }
+
 
     public void spawnBeings() {
         putBeingOnTheCell(prototypeFactory.getPrototype(Wolf.class));
