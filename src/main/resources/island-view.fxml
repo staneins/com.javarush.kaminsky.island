@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.javarush.kaminsky.service.AppController" alignment="CENTER" gridLinesVisible="true" stylesheets="@styles.css">
+<GridPane xmlns:fx="http://javafx.com/fxml" alignment="CENTER" gridLinesVisible="true" stylesheets="@styles.css">
     <children>
         <Label fx:id="cell1" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
         <Label fx:id="cell2" GridPane.rowIndex="0" GridPane.columnIndex="1"/>

@@ -14,9 +14,9 @@ public class Plant extends Being {
         this.view = view;
     }
 
-
     @Override
     public String getView() {
-        return view;
+        return this.view;
     }
+
 }

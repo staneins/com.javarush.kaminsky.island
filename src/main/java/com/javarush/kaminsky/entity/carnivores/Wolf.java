@@ -4,7 +4,7 @@ import com.javarush.kaminsky.service.AppController;
 import javafx.scene.control.Label;
 
 public class Wolf extends Carnivore {
-    private AppController appController;
+    private AppController appController = AppController.getInstance();
     private String view;
     private Label cell;
     public Wolf(double weight, int maxNumberInOneCell, int maxSpeedInCells, double kgsOfFoodNeeded, String view) {
@@ -12,18 +12,8 @@ public class Wolf extends Carnivore {
         this.view = view;
     }
 
-    public Label getCell() {
-        return cell;
-    }
-
-    public void setCell(Label cell) {
-        this.cell = cell;
-        cell.setText(view);
-    }
-
     @Override
-    public void move() {
-        this.cell.setText("");
-        appController.getLabel()
+    public String getView() {
+        return this.view;
     }
 }

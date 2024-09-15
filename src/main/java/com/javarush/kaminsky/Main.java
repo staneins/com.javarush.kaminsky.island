@@ -6,12 +6,12 @@ import com.javarush.kaminsky.service.IslandService;
 import com.javarush.kaminsky.service.PrototypeFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -46,15 +46,17 @@ public class Main extends Application {
         Font.loadFont("https://github.com/mrbvrz/segoe-ui/raw/master/font/seguiemj.ttf", 10);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/island-view.fxml"));
+        fxmlLoader.setController(AppController.getInstance());
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
         scene.getStylesheets().add(CSS);
-
-        AppController appController = fxmlLoader.getController();
-        islandService = new IslandService(prototypeFactory, appController);
+        islandService = new IslandService(prototypeFactory);
 //        islandService.spawnBeings();
 
         ExecutorService islandThreadPool = Executors.newFixedThreadPool(6);
+
+        stage.setScene(scene);
+        stage.show();
 
         Runnable wolfLifeCycle = () -> {
             try {
@@ -72,9 +74,6 @@ public class Main extends Application {
                 e.printStackTrace();
             }
         };
-
-        stage.setScene(scene);
-        stage.show();
 
         if (islandThreadPool.isTerminated()) {
             islandThreadPool.shutdownNow();

@@ -8,25 +8,20 @@ import javafx.scene.control.Label;
 import org.jetbrains.annotations.NotNull;
 
 public class IslandService {
-    private final AppController appController;
+    private AppController appController = AppController.getInstance();
     private final PrototypeFactory prototypeFactory;
 
-    public IslandService(PrototypeFactory prototypeFactory, AppController appController) {
+    public IslandService(PrototypeFactory prototypeFactory) {
         this.prototypeFactory = prototypeFactory;
-        this.appController = appController;
     }
 
     public void putBeingOnTheCell(@NotNull Being being) {
         int randomIndex = (int)(Math.random()*100) + 1;
         Label cell = appController.getLabel(randomIndex);
         being.setCell(cell);
-        cell.setText(String.valueOf(being.getView()));
+        cell.setText(being.getView());
+        System.out.println("Setting " + being.getView() + "on cell: " + randomIndex);
     }
-
-    public Label getCurrentCell(Being being) {
-        being.getCell();
-    }
-
 
     public void spawnBeings() {
         putBeingOnTheCell(prototypeFactory.getPrototype(Wolf.class));

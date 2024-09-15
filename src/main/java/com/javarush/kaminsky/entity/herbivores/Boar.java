@@ -6,4 +6,8 @@ public class Boar extends Herbivore {
         super(weight, maxNumberInOneCell, maxSpeedInCells, kgsOfFoodNeeded, view);
         this.view = view;
     }
+    @Override
+    public String getView() {
+        return this.view;
+    }
 }
