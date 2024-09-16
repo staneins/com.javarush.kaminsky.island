@@ -16,4 +16,17 @@ public class Wolf extends Carnivore {
     public String getView() {
         return this.view;
     }
+
+    @Override
+    public void setCell(Label cell) {
+        this.cell = cell;
+    }
+
+    @Override
+    public void move() {
+        this.cell.setText(this.cell.getText().replace(view, "    ").trim());
+        Label nextCell = appController.getLabel(appController.chooseMovementDirection(appController.getLabelIndex(this.cell)));
+        nextCell.setText(view);
+        System.out.println("Moving to the " + appController.getLabelIndex(nextCell));
+    }
 }

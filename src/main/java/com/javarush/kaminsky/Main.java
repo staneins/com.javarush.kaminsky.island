@@ -5,8 +5,8 @@ import com.javarush.kaminsky.service.AppController;
 import com.javarush.kaminsky.service.IslandService;
 import com.javarush.kaminsky.service.PrototypeFactory;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
@@ -61,19 +61,30 @@ public class Main extends Application {
         Runnable wolfLifeCycle = () -> {
             try {
                 Wolf wolf = (Wolf) prototypeFactory.getPrototype(Wolf.class);
-                islandService.putBeingOnTheCell(wolf);
-                while (true) { //(wolf.isAlive)
-                    wolf.move();
-                    Thread.sleep(2000);
-//                    if (wolf.isHungry) {
-//                        wolf.eat();
-//                        wolf.breed();
-//                    }
+
+                Platform.runLater(() -> {
+                    islandService.putBeingOnTheCell(wolf);
+                });
+
+                while (true) {
+                    Platform.runLater(() -> {
+                        wolf.move();
+                    });
+                    Thread.sleep(1000);
+
+                    // if (wolf.isHungry()) {
+                    //     wolf.eat();
+                    //     wolf.breed();
+                    // }
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         };
+
+
+        islandThreadPool.execute(wolfLifeCycle);
+        islandThreadPool.execute(wolfLifeCycle);
 
         if (islandThreadPool.isTerminated()) {
             islandThreadPool.shutdownNow();
