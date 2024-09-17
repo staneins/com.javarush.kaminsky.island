@@ -1,8 +1,8 @@
 package com.javarush.kaminsky.entity.herbivores;
 
 public class Deer extends Herbivore {
-    public Deer(int health, int power, int speed, String view) {
-        super(health, power, speed, view);
+    public Deer(int health, int quantity, int speed, double food, String view) {
+        super(health, quantity, speed, food, view);
     }
     @Override
     public String getView() {

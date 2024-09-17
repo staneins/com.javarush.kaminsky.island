@@ -4,8 +4,8 @@ import com.javarush.kaminsky.entity.Being;
 
 public class Plant extends Being {
 
-    public Plant(int health, int power, int speed, String view) {
-        super(health, power, speed, view);
+    public Plant(int health, int quantity, int speed, double food, String view) {
+        super(health, quantity, speed, food, view);
     }
 
     @Override

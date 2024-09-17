@@ -1,8 +1,8 @@
 package com.javarush.kaminsky.entity;
 
 public abstract class Animal extends Being {
-    public Animal(int health, int power, int speed, String view) {
-        super(health, power, speed, view);
+    public Animal(int health, int quantity, int speed, double food, String view) {
+        super(health, quantity, speed, food, view);
     }
 
 }

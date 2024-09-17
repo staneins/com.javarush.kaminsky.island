@@ -2,14 +2,16 @@ package com.javarush.kaminsky.entity;
 
 public abstract class Being {
     protected int health;
-    protected int power;
+    protected int quantity;
     protected int speed;
+    protected double food;
     protected String view;
 
-    public Being(int health, int power, int speed, String view) {
+    public Being(int health, int quantity, int speed, double food, String view) {
         this.health = health;
-        this.power = power;
+        this.quantity = quantity;
         this.speed = speed;
+        this.food = food;
         this.view = view;
     }
 
