@@ -4,48 +4,47 @@ import com.javarush.kaminsky.entity.Being;
 import com.javarush.kaminsky.entity.carnivores.*;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
-
 public class IslandService {
     private final PrototypeFactory prototypeFactory;
-    private final Cell[][] grid;
+    private final Island island;
 
-    public IslandService(PrototypeFactory prototypeFactory, Cell[][] grid) {
+    public IslandService(PrototypeFactory prototypeFactory, Island island) {
         this.prototypeFactory = prototypeFactory;
-        this.grid = grid;
+        this.island = island;
     }
 
     public void putBeingOnTheCell(@NotNull Being being, int x, int y) {
-        Cell cell = grid[x][y];
+        Cell cell = island.getCell(x, y);
         if (cell != null) {
             cell.addBeing(being);
-            being.setCell(cell.getLabel());
-            System.out.println("Placing " + being.getView() + " on cell: " + x + "," + y);
+            System.out.println("Поместили " + being.getView() + " на клетку: " + x + "," + y);
         } else {
-            System.out.println("Cell " + x + "," + y + " not found!");
+            System.out.println("Клетка " + x + "," + y + " не найдена!");
         }
     }
+
+    public void removeBeingFromCell(@NotNull Being being, int x, int y) {
+        Cell cell = island.getCell(x, y);
+        if (cell != null) {
+            cell.removeBeing(being);
+            System.out.println("Удалили " + being.getView() + " с клетки: " + x + "," + y);
+        } else {
+            System.out.println("Клетка " + x + "," + y + " не найдена!");
+        }
+    }
+
 
     public void spawnBeings() {
         putBeingOnTheCell(prototypeFactory.getPrototype(Wolf.class), getRandomCellIndex(), getRandomCellIndex());
-        // Добавьте других существ, как в предыдущем коде
+        putBeingOnTheCell(prototypeFactory.getPrototype(Bear.class), getRandomCellIndex(), getRandomCellIndex());
     }
 
     private int getRandomCellIndex() {
-        return (int) (Math.random() * grid.length);
+        return (int) (Math.random() * island.getCell(0, 0).getView().length());
     }
 
-    public void moveBeing(Being being, int oldX, int oldY, int newX, int newY) {
-        Cell currentCell = grid[oldX][oldY];
-        Cell newCell = grid[newX][newY];
-
-        if (currentCell != null && newCell != null) {
-            currentCell.removeBeing(being);
-            newCell.addBeing(being);
-            being.setCell(newCell.getLabel());
-            System.out.println("Moved " + being.getView() + " to cell: " + newX + "," + newY);
-        } else {
-            System.out.println("Invalid move. Either the current or new cell was not found.");
-        }
+    public void displayIsland() {
+        System.out.println("Текущее состояние острова:");
+        island.printIsland();
     }
 }
