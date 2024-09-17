@@ -2,14 +2,15 @@ package com.javarush.kaminsky;
 
 import com.javarush.kaminsky.entity.carnivores.Wolf;
 import com.javarush.kaminsky.service.AppController;
+import com.javarush.kaminsky.service.Cell;
 import com.javarush.kaminsky.service.IslandService;
 import com.javarush.kaminsky.service.PrototypeFactory;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
@@ -17,80 +18,65 @@ import java.util.concurrent.Executors;
 
 public class Main extends Application {
 
-    PrototypeFactory prototypeFactory = new PrototypeFactory();
-    IslandService islandService;
-
-    private static final String CSS_DATA = "data:text/css,";
-    private static final String CSS = CSS_DATA + """
-        .root {
-           -fx-font-size: 16px;
-        }
-        .default {}
-        .noto-color-emoji {
-          -fx-font-family: "Noto Color Emoji";
-        }
-        .open-sans-emoji {
-          -fx-font-family: "OpenSansEmoji";
-        }
-        .segoe-emoji {
-          -fx-font-family: "Segoe UI Emoji";
-        }
-        .apple-color-emoji {
-          -fx-font-family: "Apple Color Emoji";
-        }
-        """;
+    private PrototypeFactory prototypeFactory = new PrototypeFactory();
+    private IslandService islandService;
+    private Cell[][] grid; // Добавим клеточную сетку
+    private final int gridSize = 10; // Размер сетки 10x10
 
     @Override
     public void start(Stage stage) throws IOException {
-        Font.loadFont("https://github.com/MorbZ/OpenSansEmoji/raw/master/OpenSansEmoji.ttf", 10);
-        Font.loadFont("https://github.com/mrbvrz/segoe-ui/raw/master/font/seguiemj.ttf", 10);
-
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/island-view.fxml"));
-        fxmlLoader.setController(AppController.getInstance());
+        AppController appController = new AppController(prototypeFactory);
+        fxmlLoader.setController(appController);
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-
-        scene.getStylesheets().add(CSS);
-        islandService = new IslandService(prototypeFactory);
-//        islandService.spawnBeings();
-
-        ExecutorService islandThreadPool = Executors.newFixedThreadPool(6);
-
         stage.setScene(scene);
         stage.show();
 
+        initializeGrid();
+
+        islandService = new IslandService(prototypeFactory, grid);
+
+        ExecutorService islandThreadPool = Executors.newFixedThreadPool(6);
+
         Runnable wolfLifeCycle = () -> {
-            try {
-                Wolf wolf = (Wolf) prototypeFactory.getPrototype(Wolf.class);
+            Wolf wolf = (Wolf) prototypeFactory.getPrototype(Wolf.class);
+            Platform.runLater(() -> {
+                int randomCellX = getRandomCellIndex();
+                int randomCellY = getRandomCellIndex();
+                islandService.putBeingOnTheCell(wolf, randomCellX, randomCellY);
+            });
+
+            while (true) {
+                int currentCellIndex = wolf.getCurrentCell().getIndex();
+                int newCellX = getRandomCellIndex();
+                int newCellY = getRandomCellIndex();
 
                 Platform.runLater(() -> {
-                    islandService.putBeingOnTheCell(wolf);
+                    islandService.moveBeing(wolf, currentCellIndex / gridSize, currentCellIndex % gridSize, newCellX, newCellY);
                 });
 
-                while (true) {
-                    Platform.runLater(() -> {
-                        wolf.move();
-                    });
+                try {
                     Thread.sleep(1000);
-
-                    // if (wolf.isHungry()) {
-                    //     wolf.eat();
-                    //     wolf.breed();
-                    // }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         };
 
-
         islandThreadPool.execute(wolfLifeCycle);
-        islandThreadPool.execute(wolfLifeCycle);
+    }
 
-        if (islandThreadPool.isTerminated()) {
-            islandThreadPool.shutdownNow();
+    private void initializeGrid() {
+        grid = new Cell[gridSize][gridSize];
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                grid[i][j] = new Cell(i * gridSize + j, new Label("    ")); // Инициализация клеток с метками
+            }
         }
+    }
 
-
+    private int getRandomCellIndex() {
+        return (int) (Math.random() * gridSize); 
     }
 
     public static void main(String[] args) {

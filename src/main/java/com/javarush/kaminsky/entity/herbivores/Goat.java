@@ -16,11 +16,5 @@ public class Goat extends Herbivore {
         return this.view;
     }
 
-    @Override
-    public void move() {
-        this.cell.setText("");
-        Label nextCell = appController.getLabel(appController.chooseMovementDirection(appController.getLabelIndex(this.cell)));
-        nextCell.setText(view);
-    }
 
 }

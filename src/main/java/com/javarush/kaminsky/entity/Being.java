@@ -7,7 +7,6 @@ public abstract class Being {
     private String view;
 
 
-
     public Label getCell() {
         return cell;
     }
@@ -16,5 +15,7 @@ public abstract class Being {
         this.cell = cell;
     }
 
-    public abstract String getView();
+    public String getView() {
+        return view;
+    }
 }

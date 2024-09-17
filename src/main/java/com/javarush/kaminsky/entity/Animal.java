@@ -20,7 +20,7 @@ public abstract class Animal extends Being implements Reproducable {
         this.view = view;
     }
 
-    public abstract void move();
+
 
     //    public abstract void eat();
 
