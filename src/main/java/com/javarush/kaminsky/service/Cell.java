@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cell {
-    private final List<Being> beings = new ArrayList<>();
+    private List<Being> beings = new ArrayList<>();
 
     public void addBeing(Being being) {
         beings.add(being);
@@ -16,12 +16,19 @@ public class Cell {
         beings.remove(being);
     }
 
+    public List<Being> getBeings() {
+        return beings;
+    }
 
     public String getView() {
         if (beings.isEmpty()) {
-            return "🌱";
+            return "🏔️";
         } else {
-            return beings.get(0).getView();
+            StringBuilder viewBuilder = new StringBuilder();
+            for (Being being : beings) {
+                viewBuilder.append(being.getView());
+            }
+            return viewBuilder.toString();
         }
     }
 }

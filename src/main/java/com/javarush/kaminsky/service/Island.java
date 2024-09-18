@@ -1,7 +1,7 @@
 package com.javarush.kaminsky.service;
 
 public class Island {
-    private final Cell[][] grid;
+    private Cell[][] grid;
 
     public Island(int size) {
         grid = new Cell[size][size];
@@ -12,11 +12,22 @@ public class Island {
         }
     }
 
+    public int getWidth() {
+        return grid[1].length;
+    }
+    public int getHeight() {
+        return grid[0].length;
+    }
+
     public Cell getCell(int x, int y) {
         return grid[x][y];
     }
 
-    public void printIsland() {
+    public Cell[][] getGrid() {
+        return grid;
+    }
+
+    public synchronized void printIsland() {
         for (Cell[] row : grid) {
             for (Cell cell : row) {
                 System.out.print(cell.getView() + " ");
